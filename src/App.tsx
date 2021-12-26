@@ -1,8 +1,8 @@
 import './App.css'
-import TodoItem from './components/TodoItem'
 import { useState,useEffect } from 'react'
+import TodoItem from './components/TodoItem'
 import FormAddToDo from './components/FormAddToDo';
-import { nanoid } from 'nanoid'
+import { getId } from './lib/getId';
 
 export interface Todo {
   id:string
@@ -21,7 +21,7 @@ function App() {
     localStorage.setItem('todos', JSON.stringify(todos))
   }, [todos])
   useEffect(() => {
-    // Update the document title using the browser API
+    // Update the document title
     document.title = `Todo( ${todos.length} )`;
   },[todos]);
 
@@ -39,7 +39,7 @@ function App() {
   };
 
   const addTodo = (text: string) => {
-    const newTodo = {id: nanoid(), text, complete: false };
+    const newTodo = {id: getId(), text, complete: false };
     setTodos([...todos, newTodo]);
   };
   const deleteTodo = (selectedTodoId: string) => {
